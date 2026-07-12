@@ -114,7 +114,7 @@ func (command *gameActionSlashCommand) Handle(session *discordgo.Session, intera
 		content = "⏳ 他のコマンドが実行中です。しばらく待ってから再実行してください。"
 	} else if err != nil {
 		log.Printf("[GAME] action %s failed: %v", command.action, err)
-		content = fmt.Sprintf("%s 実行に失敗しました: %v", failureEmoji, err)
+		content = failureEmoji + " 実行に失敗しました。詳細はログを確認してください。"
 	} else {
 		content = formatResult(command.action, result)
 	}

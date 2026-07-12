@@ -6,11 +6,12 @@
 ## 機能
 
 SSHでリモートサーバーに接続し`sudo /usr/local/bin/game <action>`を実行、結果をDiscordに返す。
+(すべて実行者本人にのみ表示)
 
 - `/start-server`: サーバー起動
 - `/stop-server`: サーバー停止
 - `/restart-server`: サーバー再起動
-- `/status-server`: サーバー状態確認(実行者本人にのみ表示)
+- `/status-server`: サーバー状態確認
 
 ## 前提条件
 
@@ -65,6 +66,8 @@ cp permissions.example.json permissions.json
 
 ### 起動方法
 
+#### ローカルで起動
+
 ```bash
 go run ./cmd/lolipop-bot
 ```
@@ -75,3 +78,13 @@ go run ./cmd/lolipop-bot
 go build -o lolipop-bot ./cmd/lolipop-bot
 ./lolipop-bot
 ```
+
+#### Dockerで起動
+
+`.env`と`permissions.json`を用意した上で:
+
+```bash
+docker compose up -d
+```
+
+`SSH_KEY_PATH`はホスト側パスなのでコンテナ内では使えない。`compose.yml`側で鍵ファイル・known_hostsをコンテナ内の固定パス(`/app/ssh_key`、`/app/known_hosts`)にマウントし、`SSH_KEY_PATH`/`SSH_KNOWN_HOSTS`をそのパスで上書きしている。鍵ファイルの場所を変える場合は`compose.yml`のマウント元を書き換える。

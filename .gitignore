@@ -1,0 +1,7 @@
+.env
+permissions.json
+*.pem
+*_rsa
+*_ed25519
+/lolipop-bot
+/lolipop-bot.exe
